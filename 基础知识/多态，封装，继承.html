@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var duck = {
+            duckSinging: function () {
+                console.log("gaga");
+            }
+        };
+        var chicken = {
+            duckSinging: function () {
+                console.log("gaga");
+            }
+        };
+        var choir = [];
+        var joinChoir = function (animal) {
+            if (animal && typeof animal.duckSinging === "function") {
+                choir.push(animal);
+                console.log("number:" + choir.length);
+                
+            }
+        }
+        joinChoir(duck);
+        joinChoir(chicken);
+
+        var makeSound = function(animal){
+            if(animal instanceof Duck){
+                console.log("gagaga");
+            }else if(animal instanceof Chicken){
+                console.log("gigigi");
+            }
+        }
+        var Duck = function(){};
+        var Chicken = function(){};
+        makeSound(new Duck());
+        makeSound(new Chicken());
+
+        var makeSound = function(animal){
+            animal.sound();
+        };
+        var Duck = function(){};
+        Duck.prototype.sound = function(){
+            console.log("gagaga");
+            
+        };
+        var Chicken = function(){};
+        Chicken.prototype.sound = function(){
+            console.log("gigigi")
+        };
+        makeSound(new Duck());
+        makeSound(new Chicken());
+
+        var gooleMap = {
+            show: function(){
+                console.log("goole map");
+            }
+        };
+        var renderMap = function(){
+            gooleMap.show();
+        };
+        renderMap();
+
+        var gooleMap = {
+            show: function(){
+                console.log("goole map");
+            }
+        };
+
+        var baiduMap = {
+            show: function(){
+                console.log("baidu map");
+            }
+        };
+
+        var renderMap = function(type){
+            if(tpye === "google"){
+                gooleMap.show();
+            }else if (type === "baidu"){
+                baiduMap.show();
+            }
+        }
+        renderMap('google');
+        renderMap('baidu');
+
+        var renderMap = function(map){
+            if(map.show instanceof Function){
+                map.show()
+            }
+        };
+        renderMap(gooleMap);
+        renderMap(baiduMap);
+
+        var sosoMap = {
+            show: function(){
+                console.log("soso map");
+            }
+        };
+        renderMap(sosoMap);
+
+        var myObject = (function(){
+            var _name = "sven";
+            return {
+                getName:function(){
+                    return _name;
+                }
+            }
+        })();
+
+        console.log(myObject.getName());
+        console.log(myObject._name);//undefined
+        
+        var Plane = function(){
+            this.blood = 100;
+            this.attackLevel = 1;
+            this.defenseLevel =1;
+        }
+
+        var plane = new Plane();
+        plane.blood = 500;
+        plane.attackLevel = 10;
+        plane.defenseLevel = 7;
+
+        var clonePlane = Object.create(plane);
+        console.log(clonePlane);
+
+        //在不支持Object.create 方法的浏览器中，则可以使用以下代码：
+        Object.create = Object.create || function( obj ){
+            var F = function(){};
+            F.prototype = obj;
+            return new F();
+        }
+
+        class Animal{
+            constructor(name){
+                this.name = name;
+            }
+            getName(){
+                return this.name;
+            }
+        }
+        class Dog extends Animal{
+            constructor(name){
+                super(name);
+            }
+            speak(){
+                return "woof";
+            }
+        }
+
+        var dog = new Dog("Scamp");
+        console.log(dog.getName()+"say"+dog.speak());
+        
+
+    </script>
+</body>
+
+</html>

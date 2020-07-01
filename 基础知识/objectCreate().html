@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+        Object.create()方法创建一个新对象，使用现有的对象来提供新创建对象的__proto__。
+
+        Object.create(proto[, propertiesObject])
+            proto 新创建对象的原型对象
+            propertiesObject可选。如果没有指定为 undefined，则是要添加到新创建对象的不可枚举（默认）属性（
+            即其自身定义的属性，而不是其原型链上的枚举属性）对象的属性描述符以及相应的属性名称。这些属性对应Object.defineProperties()的第二个参数。
+        
+        返回值
+            一个新对象，带着指定的原型对象和属性。
+
+        例外
+            如果propertiesObject参数是 null 或非原始包装对象，则抛出一个 TypeError 异常。
+
+        具体三个步骤就是：
+            创建一个对象
+            继承指定父对象
+            为新对象扩展新属性
+            自己实现一个Object.create() ：
+        */
+
+        Object.myCreate = function (obj, properties) {
+            function F() { };
+            F.prototype = obj;
+            var newObj = new F();
+            if (properties) {
+                Object.defineProperties(newObj, properties)
+            }
+            return newObj;
+        }
+
+        var parentObj = {
+            name: "allen"
+        }
+        var childObj1 = Object.create(parentObj);
+        console.log(childObj1);
+        var childObj2 = Object.myCreate(parentObj);
+        console.log(childObj2);
+
+        /**
+        new Object()
+            new 运算符是创建一个自定义对象或者具有构造函数的内置对象的实例mdn
+            使用new运算符会创建一个新的对象，它继承自构造函数的prototype,也就是说它的__proto__属性会指向构造函数的prototype
+            new Object() 也就是具有构造函数的内置Object的实例，新创建的对象的__proto__属性会指向Object的prototype
+        */
+
+        //new 的构造过程：
+        var objectFactory = function () {
+            var obj = new Object();//
+            var Constructor = [].shift.call(arguments);
+            obj.__proto__ = Constructor.prototype;
+            var ret = Constructor.apply(obj,arguments);
+            return typeof ret === "object"? ret : obj;
+        };
+
+        function Person(name) {
+            this.name = name;
+        };
+
+        Person.prototype.getName = function () {
+            return this.name;
+        };
+
+        var a = objectFactory(Person, 'nancy');
+        console.log(a.name);  // nancy
+        console.log(a.getName); //nancy
+        console.log(Object.getPrototypeOf(a) === Person.prototype);//true
+
+        /**
+            总结区别
+            Object.cerate() 必须接收一个对象参数，创建的新对象的原型指向接收的参数对象，new Object() 创建的新对象的原型指向的是 Object.prototype. （表述有点啰嗦，简洁点说就是前者继承指定对象， 后者继承内置对象Object）
+            可以通过Object.create(null) 创建一个干净的对象，也就是没有原型，而 new Object() 创建的对象是 Object的实例，原型永远指向Object.prototype.
+        */
+
+
+    </script>
+</body>
+
+</html>
