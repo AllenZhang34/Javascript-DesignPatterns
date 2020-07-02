@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+            高阶函数是指至少满足下列条件之一的函数：
+            1.函数可以作为参数被传递;
+            2.函数可以作为返回值输出；
+
+            1.函数作为参数传递
+            （1）回调函数：
+            页面中创建100个div的节点，然后把这些div节点设置为隐藏
+
+           
+        */
+        // 第一种方式：
+        /*var appendDiv = function(){
+            for(var i=0;i<100;i++){
+                var div = document.createElement("div");
+                div.innerHTML = i;
+                document.body.appendChild(div);
+                div.style.display="none";
+            }
+        };
+        //这种方式把 div.style.display="none" 直接写在appendDiv中明显不合理，把这行抽出来，用回调函数传入
+        //第二种方式：
+        var appendDiv = function(callback){
+            for(var i=0;i<100;i++){
+                var div = document.createElement("div");
+                div.innerHTML = i;
+                document.body.appendChild(div);
+                if( typeof callback === "function"){
+                    callback(div);
+                }
+            }
+        }
+
+        appendDiv(function(node){
+            ndoe.style.display = "none";
+        })
+
+        //(2)函数作为返回值输出
+        var Type = {};
+        for(var i=0,type;type=["String","Array","Number"][i++];){
+            (function(type){
+                Tpye["is"+type] = function(obj){
+                    return Object.prototype.toString().call(obj) === "[object " + type +"]";
+                }
+            })(type)
+        };
+        Type.isArray([]);
+        Type.isString("str");
+        */
+
+        var getSingle = function(fn){
+            var ret;
+            return function(){
+                return ret || (ret = fn.apply(this,arguments));
+            };
+        };
+
+        var getScript = getSingle(function(){
+            return document.createElement("script");
+        });
+
+        var script1 = getScript();
+        var script2 = getScript();
+        alert(script1 === script2);
+    </script>
+</body>
+</html>
