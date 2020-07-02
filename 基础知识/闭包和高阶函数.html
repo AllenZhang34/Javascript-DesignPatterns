@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // var a=1;
+        // var fun1 = function(){
+        //     var b=2;
+        //     var fun2 = function(){
+        //         var c=3;
+        //         console.log(b);
+        //         console.log(a);
+        //     }
+        //     fun2();
+        //     console.log(c);
+        // }
+        // fun1();
+
+        var Type = {};
+        for (var i = 0, type; type = ["String", "Array", "Number"][i++];) {
+            (function (type) {
+                Type["is" + type] = function (obj) {
+                    return Object.prototype.toString.call(obj) === '[object ' + type + ']';
+                }
+            })(type)
+        }
+
+        Type.isArray([]);
+        Type.isString("str");
+
+        var cache = {};
+        var mult = function () {
+            var args = Array.prototype.join.call(arguments, ",");
+            if (cache[args]) {
+                return cache[args];
+            }
+
+            var a = 1;
+            for (var i = 0,l=arguments.length;i<l;i++){
+                a = a*arguments[i];
+            }
+            return cache[args]=a;
+        };
+
+        mult(1,2,3);
+        mult(1,2,3);
+
+    </script>
+</body>
+
+</html>
