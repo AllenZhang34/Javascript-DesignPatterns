@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // var obj = {
+        //     a:1,
+        //     getA:function(){
+        //         console.log(this === obj);//true
+        //         console.log(this.a);//1
+        //     }
+        // };
+        // obj.getA();
+
+        // window.name = "globalname";
+        // var getName = function(){
+        //     return this.name;
+        // };
+        // console.log(getName());//globalname
+
+        // var myObject = {
+        //     name:"allen",
+        //     getName:function(){
+        //         return this.name;
+        //     }
+        // };
+        // var getName = myObject.getName;
+        // console.log(getName());//globalname
+        
+        // window.id = "window";
+        // document.getElementById("div1").onclick = function(){
+        //     console.log(this.id);//div1;
+        //     var callBack = function(){
+        //         console.log(this.id);//window
+        //     }
+        //     callBack();
+        // }
+
+        // document.getElementById("div1").onclick = function(){
+        //     console.log(this.id);//div1;
+        //     var that = this;
+        //     var callBack = function(){
+        //         console.log(that.id);//div1
+        //     }
+        //     callBack();
+        // }
+
+        // function func(){
+        //     "use strict"
+        //     alert(this);//undefined
+        // }
+        // func();
+
+        // var MyClass1 = function(){
+        //     this.name = "allen";
+        // }
+        // var  subClass = new MyClass1();
+        // console.log(subClass.name);//allen
+        
+        // var MyClass2 = function(){
+        //     this.name = "allen";
+        //     return {
+        //         name:"allen zhang"
+        //     }
+        // };
+        // var subClass2 = new MyClass2();
+        // console.log(subClass2.name);//allen zhang
+
+        // var MyClass3 = function(){
+        //     this.name = "allen";
+        //     return "allen zhang"
+        // };
+        // var subClass3 = new MyClass3();
+        // console.log(subClass3.name);//allen
+
+        // var obj1 = {
+        //     name:"allen",
+        //     getName:function(){
+        //         return this.name;
+        //     }
+        // };
+        // var obj2 = {
+        //     name:"allen zhang"
+        // };
+
+        // console.log(obj1.getName.call(obj2));//allen zhang
+        
+        
+        document.getElementById = (function(fun){
+            return function(){
+                return fun.apply(document,arguments);
+            }
+        })(document.getElementById);
+
+        var getId = document.getElementById;
+        var div = getId("div1");
+        //console.log(div.id);
+        
+
+    </script>
+</body>
+</html>
