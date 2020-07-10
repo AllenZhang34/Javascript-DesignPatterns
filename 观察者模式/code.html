@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // var salesOffices = {};
+        // salesOffices.clientList = {};
+        // salesOffices.listen = function(fn){
+        //     this.clientList.push(fn);
+        // };
+        // salesOffices.trigger = function(){
+        //     for(var i=0,fn;fn=this.clientList[i++];){
+        //         fn.apply(this,arguments);
+        //     }
+        // };
+        // salesOffices.listen(function(price,squareMeter){
+        //     console.log("price:" + lprice);
+        //     console.log("squareMeter" + squareMeter);
+        // });
+        // salesOffices.listen(function(price,squareMeter){
+        //     console.log("price:" + price);
+        //     console.log("squareMeter" + squareMeter);
+        // });
+        // salesOffices.trigger(20,88);
+        // salesOffices.trigger(30,188);
+
+
+
+        // var salesOffices = {};
+        // salesOffices.clientList = {};
+        // salesOffices.listen = function(key,fn){
+        //     if(!this.clientList[key]){
+        //         this.clientList[key] = [];
+        //     }
+        //     this.clientList[key].push(fn);
+        // };
+        // salesOffices.trigger = function(){
+        //     var key = Array.prototype.shift.call(arguments);
+        //     var fns = this.clientList[key];
+        //     if(!fns || fns.length === 0){
+        //         return false;
+        //     }
+        //     for(var i=0,fn;fn=fns[i++];){
+        //         fn.apply(this,arguments);
+        //     }    
+        // };
+
+        // salesOffices.listen("squareMeter88",function(price){
+        //     console.log("price"+price);
+
+        // });
+        // salesOffices.listen("squareMeter110",function(price){
+        //     console.log("price"+price);
+        // });
+        // salesOffices.trigger( 'squareMeter88', 2000000 );
+        // salesOffices.trigger( 'squareMeter110', 3000000 ); 
+
+        // var event = {
+        //     clientList:{},
+        //     listen: function( key, fn ){
+        //         if ( !this.clientList[ key ] ){
+        //             this.clientList[ key ] = [];
+        //         }
+        //         this.clientList[ key ].push( fn ); // 订阅的消息添加进缓存列表
+        //     },
+        //     trigger: function(){
+        //         var key = Array.prototype.shift.call( arguments ), // (1);
+        //         fns = this.clientList[ key ];
+        //         if ( !fns || fns.length === 0 ){ // 如果没有绑定对应的消息
+        //             return false;
+        //         }
+        //         for( var i = 0, fn; fn = fns[ i++ ]; ){
+        //             fn.apply( this, arguments ); // (2) // arguments 是trigger 时带上的参数
+        //         }
+        //     }
+        // };
+
+        // var installEvent = function(obj){
+        //     for (var i in event){
+        //         obj[i] = event[i]
+        //     }
+        // };
+
+        // var salesOffices = {};
+        // installEvent( salesOffices );
+        // salesOffices.listen( 'squareMeter88', function( price ){ 
+        //     console.log( '价格= ' + price );
+        // });
+        // salesOffices.listen( 'squareMeter100', function( price ){
+        //     console.log( '价格= ' + price );
+        // })
+        // salesOffices.trigger( 'squareMeter88', 2000000 );
+        // salesOffices.trigger( 'squareMeter100', 3000000 );
+
+        // event.remove = function (key, fn) {
+        //     var fns = this.clientList[key];
+        //     if (!fns) {
+        //         return false;
+        //     }
+        //     if (!fn) {
+        //         fns && (fns.length = 0);
+        //     } else {
+        //         for (var l = fns.length - 1; l >= 0; l--) {
+        //             var _fn = fns[l];
+        //             if (_fn === fn) {
+        //                 fns.splice(l, 1)
+        //             }
+        //         }
+        //     }
+        // };
+        // var salesOffices = {};
+        // var installEvent = function (obj) {
+        //     for (var i in event) {
+        //         obj[i] = event[i];
+        //     }
+        // }
+
+        // installEvent(salesOffices);
+
+        // salesOffices.listen('squareMeter88', fn1 = function (price) {
+        //     console.log('价格= ' + price);
+        // });
+
+        // salesOffices.listen('squareMeter88', fn2 = function (price) {
+        //     console.log('价格= ' + price);
+        // });
+
+        // salesOffices.remove('squareMeter88', fn1);
+        // salesOffices.trigger('squareMeter88', 2000000);
+
+        // var Event = (function(){
+        //     var clientList = {},
+        //     listen,
+        //     trigger,
+        //     remove;
+        //     listen = function( key, fn ){
+        //         if ( !clientList[ key ] ){
+        //             clientList[ key ] = [];
+        //         }
+        //         clientList[ key ].push( fn );
+        //     };
+        //     trigger = function(){
+        //         var key = Array.prototype.shift.call( arguments ),
+        //         fns = clientList[ key ];
+        //         if ( !fns || fns.length === 0 ){
+        //             return false;
+        //         }
+        //         for( var i = 0, fn; fn = fns[ i++ ]; ){
+        //             fn.apply( this, arguments );
+        //         }
+        //     };
+        //     remove = function( key, fn ){
+        //         var fns = clientList[ key ];
+        //         if ( !fns ){
+        //             return false;
+        //         }
+        //         if ( !fn ){
+        //             fns && ( fns.length = 0 );
+        //         }else{
+        //             for ( var l = fns.length - 1; l >=0; l-- ){
+        //                 var _fn = fns[ l ];
+        //                 if ( _fn === fn ){
+        //                     fns.splice( l, 1 );
+        //                 }
+        //             }
+        //         }
+        //     };
+        //     return {
+        //         listen: listen,
+        //         trigger: trigger,
+        //         remove: remove
+        //     }
+        // })();
+
+        // Event.listen( 'squareMeter88', function( price ){
+        //     console.log( '价格= ' + price );
+        // });
+
+        // Event.trigger( 'squareMeter88', 2000000 );
+
+        var eventManger = {
+            cached: {},
+            handlers: {},
+            //类型,绑定事件 
+            addHandler: function (type, handler) {
+                if (typeof handler !== "function") return;
+
+                if (typeof this.handlers[type] == "undefined") {
+                    this.handlers[type] = [];
+                }
+                this.handlers[type].push(handler);
+
+                if (this.cached[type] instanceof Array) {
+                    //说明有缓存的 可以执行
+                    handler.apply(null, this.cached[type]);
+                }
+            },
+            removeHandler: function (type, handler) {
+                var events = this.handlers[type];
+                for (var i = 0, len = events.length; i < len; i++) {
+                    if (events[i] == handler) {
+                        events.splice(i, 1);
+                        break;
+                    }
+                }
+            },
+            trigger: function (type) {
+                //如果有订阅的事件，这个时候就触发了
+                if (this.handlers[type] instanceof Array) {
+                    var handlers = this.handlers[type];
+                    var args = Array.prototype.slice.call(arguments, 1);
+                    for (var i = 0, len = handlers.length; i < len; i++) {
+                        handlers[i].apply(null, args);
+                    }
+                }
+                //默认缓存
+                this.cached[type] = Array.prototype.slice.call(arguments, 1);
+            }
+        };
+
+        eventManger.addHandler("test", function (res) {
+            console.log("先订阅，后发布1", res);
+        })
+
+        eventManger.trigger("test", 2);
+
+
+        eventManger.addHandler("test", function (res) {
+            console.log("先发布，后订阅2", res);
+        })
+
+        eventManger.addHandler("test", function (res) {
+            console.log("先发布，后订阅3", res);
+        })
+    </script>
+    </script>
+</body>
+
+</html>
