@@ -1,16 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
         /**
             单例模式：保证一个类只有仅有一个实例，并提供一个访问他的全局访问点
         */
+
+        //=================================================================================================
         //实现单例模式
+        //用一个变量来标志当前是否已经为某个类创建过对象，如果是，则在下一次获取该类的实例的时候，直接返回之前创建的对象
+        //通过 Singleton.getInstance 来获取 Singleton 类的唯一对象，这种方式相对简单，但有 一个问题，就是增加了这个类的“不透明性”，
+        //Singleton 类的使用者必须知道这是一个单例类， 跟以往通过 new XXX 的方式来获取对象不同，这里偏要使用 Singleton.getInstance 来获取对象
+
+        class Singleton {
+            constructor(name){
+                this.name = name;
+                this.instance = null;
+            }
+
+            getName(){
+                console.log(this.name);
+                
+            }
+        }
+
+        Singleton.getInstance = (name)=>{
+            if(!this.instance){
+                this.instance = new Singleton(name);
+            }
+            return this.instance;
+        }
+
+        var a = Singleton.getInstance("sven1");
+        var b = Singleton.getInstance("sven2");
+        a.getName()
+        b.getName();
+        console.log(a===b);
+
+
+        //===================================================================================================
+        //透明的单例类，用这个类创建对象的时候可以像其他普通类一样。使用 CreateDiv 创建的单例类，负责在页面中创建唯一的div节点。
+
+        let CreateDiv = (()=>{
+            let instance;
+
+            class CreateDiv {
+                
+                constructor(html){
+                    if(instance){
+                        return instance;
+                    }
+                    this.html = html;
+                    this.init();
+                    return instance = this; 
+                }
+
+                init(){
+                    let div = document.createElement("div");
+                    div.innerHTML = this.html;
+                    document.body.appendChild(div);
+                }
+            }
+
+            return CreateDiv;
+        })();
+        
+        let a = new CreateDiv("allen1");
+        let b = new CreateDiv("allen2");
+        console.log(a===b);
+        //这段代码中 为了把instance封装起来 使用了自执行函数和闭包，并且让这个匿名函数返回了真正的singleton构造方法。增加了程序的复杂度。
+        //CreateDiv这个构造函数中实际上执行了两个事情。第一个是创建对象和执行初始化init方法，第二个是保证只有一个对象。这是一种不好的做法
+        //如果后面要创建多个div,就要深入CreateDiv函数修改代码逻辑。 
+
+        //==========================================================================================================
+
+        //使用代理实现单例模式
+        //将负责管理单例的代码提取出来，使其成为一个普通的创建div的类。将管理单例模式的逻辑移到代理类proxySingletonCreateDiv中
+        //和CreateDiv组合到达单例模式
+
+        class CreateDiv {
+            constructor(html) {
+                this.html = html;
+                this.init();
+            }
+            init() {
+                let div = document.createElement("div");
+                div.innerHTML = this.html;
+                document.body.appendChild(div);
+            }
+        }
+
+
+        let proxySingletonCreateDiv = (() => {
+            let instance;
+            return (fn,html)=>{
+                if(!instance){
+                    instance = new fn(html);
+                }
+
+                return instance;
+            }
+        })()
+
+        let a = proxySingletonCreateDiv(CreateDiv,"allen1");
+        let b = proxySingletonCreateDiv(CreateDiv,"allen2");
+        console.log(a === b);
+
+        //============================================================================================
+        //JS中的单例模式
+        //单例模式的核心是确保只有一个实例，并提供全局访问。
+        //动态创建命名空间
+        let myApp = {}
+        myApp.nameSpace = (name)=>{
+            let parts = name.split(".");
+            let current = myApp;
+            for (let i in parts){
+                if(!current[parts[i]]){
+                    current[parts[i]] = {};
+                }
+                current = current[parts[i]];
+            }
+        };
+
+        myApp.nameSpace("event");
+        myApp.nameSpace("dom.style");
+        console.log(myApp);
+
     </script>
 </body>
+
 </html>

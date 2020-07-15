@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let myApp = {}
+        myApp.nameSpace = (name)=>{
+            let parts = name.split(".");
+            let current = myApp;
+            for (let i in parts){
+                if(!current[parts[i]]){
+                    current[parts[i]] = {};
+                }
+                current = current[parts[i]];
+            }
+        };
+
+        myApp.nameSpace("event");
+        myApp.nameSpace("dom.style");
+        console.log(myApp);
+        
+    </script>
+</body>
+</html>

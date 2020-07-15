@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // let CreateDiv = (()=>{
+        //     let instance;
+
+        //     class CreateDiv {
+                
+        //         constructor(html){
+        //             if(instance){
+        //                 return instance;
+        //             }
+        //             this.html = html;
+        //             this.init();
+        //             return instance = this; 
+        //         }
+
+        //         init(){
+        //             let div = document.createElement("div");
+        //             div.innerHTML = this.html;
+        //             document.body.appendChild(div);
+        //         }
+        //     }
+
+        //     return CreateDiv;
+        // })();
+        
+        // let a = new CreateDiv("allen1");
+        // let b = new CreateDiv("allen2");
+        // console.log(a===b);
+
+        var CreateDiv = (function(){
+            var instance;
+
+            var CreateDiv = function(html){
+                if(instance){
+                    return instance;
+                }
+
+                this.html = html;
+                this.init();
+                return instance = this;
+            };
+
+            CreateDiv.prototype.init = function(){
+                var div = document.createElement("div");
+                div.innerHTML = this.html;
+                document.body.appendChild(div);
+            };
+
+            return CreateDiv;
+        })()
+
+        let a = new CreateDiv("allen1");
+        let b = new CreateDiv("allen2");
+        console.log(a===b);
+
+        
+    </script>
+</body>
+</html>

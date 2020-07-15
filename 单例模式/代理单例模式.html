@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        class CreateDiv {
+            constructor(html) {
+                this.html = html;
+                this.init();
+            }
+            init() {
+                let div = document.createElement("div");
+                div.innerHTML = this.html;
+                document.body.appendChild(div);
+            }
+        }
+
+
+        let proxySingletonCreateDiv = (() => {
+            let instance;
+            return (fn,html)=>{
+                if(!instance){
+                    instance = new fn(html);
+                }
+
+                return instance;
+            }
+        })()
+
+        let a = proxySingletonCreateDiv(CreateDiv,"allen1");
+        let b = proxySingletonCreateDiv(CreateDiv,"allen2");
+        console.log(a === b);
+    </script>
+</body>
+
+</html>
